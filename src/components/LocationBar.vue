@@ -2,12 +2,13 @@
     <Select 
       class="loc-select" 
       v-model="selectedItem" 
+      @change="storeLocWeather"
       showClear filter
       :options="citiesStore.items" 
       optionLabel="city"
       placeholder="Select a City" 
       :virtualScrollerOptions="{ itemSize: 16 }"
-      resetFilterOnHide="true"
+      :resetFilterOnHide=true
     />
 </template>
 
@@ -15,6 +16,8 @@
   import { ref } from "vue";
   import Select from 'primevue/select';
   import { useCitiesStore } from '../stores/cities';
+  import { useWeatherStore } from '../stores/weatherAPI';
+  
 
   const selectedItem = ref();
 
@@ -22,6 +25,12 @@
 
   citiesStore.getCities();
 
+  const weatherStore = useWeatherStore();
+  
+  const storeLocWeather = () =>{ 
+    weatherStore.locationData = selectedItem.value;
+    weatherStore.parseLocData(selectedItem.value);
+  };
 
 </script>
 
