@@ -1,29 +1,27 @@
-
 <template>
-      <Select 
-        class="loc-select" 
-        v-model="selectedCity" 
-        editable showClear filter 
-        :options="cities" 
-        optionLabel="name" 
-        placeholder="Select a City" 
-        />
-
+    <Select 
+      class="loc-select" 
+      v-model="selectedItem" 
+      showClear filter
+      :options="citiesStore.items" 
+      optionLabel="city"
+      placeholder="Select a City" 
+      :virtualScrollerOptions="{ itemSize: 16 }"
+      resetFilterOnHide="true"
+    />
 </template>
 
 <script setup>
   import { ref } from "vue";
-  
   import Select from 'primevue/select';
+  import { useCitiesStore } from '../stores/cities';
 
-  const selectedCity = ref();
-  const cities = ref([
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
-  ]);
+  const selectedItem = ref();
+
+  const citiesStore = useCitiesStore();
+
+  citiesStore.getCities();
+
 
 </script>
 
@@ -33,6 +31,11 @@
     width: 90vw;
     height: 3rem;
   }
+
+  .p-select {
+    text-align: center
+  }
+
   @media screen and (min-width: 1275px) {
     .loc-select {
       width: 50vw;

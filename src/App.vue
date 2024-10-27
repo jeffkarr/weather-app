@@ -6,8 +6,11 @@ import LocationBar from './components/LocationBar.vue'
 <template>
   <div id="content">
     <header>
-      <LocationBar />
+        <LocationBar />
     </header>
+    <p id="simplemap">
+      <a style="color:white;text-decoration:none;"href="https://simplemaps.com/data/us-cities" target="_blank">"United States Cities Database by simplemaps is licensed under CC BY 4.0</a>
+    </p>
     <aside>Current Weather</aside>
     <main>Weather Map</main>
     <section>Forecast</section>
@@ -22,10 +25,11 @@ import LocationBar from './components/LocationBar.vue'
     max-height: 1000px;
     margin: 0 auto;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(100px, auto);
+    grid-auto-rows: minmax(50px, auto);
     grid-gap: 10px;
     grid-template-areas:
     'header header header header'
+    'simplemap simplemap simplemap simplemap'
     'aside aside aside aside'
     'aside aside aside aside'
     'main main main main'
@@ -41,10 +45,11 @@ import LocationBar from './components/LocationBar.vue'
       max-width: 1800px;
       margin: 0 auto;
       grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: minmax(100px, auto);
+      grid-auto-rows: minmax(50px, auto);
       grid-gap: 10px;
       grid-template-areas:
       'header header header header'
+      '. simplemap simplemap .'
       'aside main main main'
       'aside main main main'
       'section main main main'
@@ -52,7 +57,6 @@ import LocationBar from './components/LocationBar.vue'
       'section main main main';
     }
   }
-
   header {
     grid-area: header;
     display: flex;
@@ -60,6 +64,12 @@ import LocationBar from './components/LocationBar.vue'
     justify-content: center;
     /* background: #fff;
     padding: 30px;   */
+  }
+  #simplemap {
+    grid-area: simplemap;
+    display: flex;
+    justify-content: center;
+    font-size: .6em;
   }
   main {
     grid-area: main;
@@ -85,6 +95,5 @@ import LocationBar from './components/LocationBar.vue'
     background: #fff;
     padding: 30px;  
   }
-
 
 </style>
