@@ -1,8 +1,3 @@
-<script setup>
-// import { RouterLink, RouterView } from 'vue-router'
-import LocationBar from './components/LocationBar.vue'
-</script>
-
 <template>
   <div id="content">
     <header>
@@ -16,6 +11,13 @@ import LocationBar from './components/LocationBar.vue'
     <section>Forecast</section>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+  // import { RouterLink, RouterView } from 'vue-router'
+  import LocationBar from './components/LocationBar.vue'
+
+</script>
 
 <style scoped>
 
@@ -37,25 +39,6 @@ import LocationBar from './components/LocationBar.vue'
     'section section section section'
     'section section section section'
     'section section section section';
-  }
-  
-  @media screen and (min-width: 1275px) {
-    #content {
-      display: grid;
-      max-width: 1800px;
-      margin: 0 auto;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: minmax(50px, auto);
-      grid-gap: 10px;
-      grid-template-areas:
-      'header header header header'
-      '. simplemap simplemap .'
-      'aside main main main'
-      'aside main main main'
-      'section main main main'
-      'section main main main'
-      'section main main main';
-    }
   }
   header {
     grid-area: header;
@@ -94,6 +77,25 @@ import LocationBar from './components/LocationBar.vue'
     justify-content: center;
     background: #fff;
     padding: 30px;  
+  }
+
+  @media screen and (min-width: 1275px) {
+    #content {
+      display: grid;
+      max-width: 1800px;
+      margin: 0 auto;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(50px, auto);
+      grid-gap: 10px;
+      grid-template-areas:
+      'header header header header'
+      '. simplemap simplemap .'
+      'aside main main main'
+      'aside main main main'
+      'section main main main'
+      'section main main main'
+      'section main main main';
+    }
   }
 
 </style>
