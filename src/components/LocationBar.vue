@@ -28,8 +28,17 @@
   const weatherStore = useWeatherStore();
   
   const storeLocWeather = () =>{ 
-    weatherStore.locationData = selectedItem.value;
-    weatherStore.parseLocData(selectedItem.value);
+    if (!selectedItem.value) {
+      weatherStore.locationData = {};
+      weatherStore.locationCityState = "";
+      weatherStore.locationCoordinates = [];
+      weatherStore.lat = "";
+      weatherStore.lon = ""; 
+      weatherStore.currWeatherData = {};
+    } else {
+      weatherStore.locationData = selectedItem.value;
+      weatherStore.parseLocData(selectedItem.value);
+    };
   };
 
 </script>
