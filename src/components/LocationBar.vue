@@ -17,20 +17,36 @@
   import Select from 'primevue/select';
   import { useCitiesStore } from '../stores/cities';
   import { useWeatherStore } from '../stores/weatherAPI';
+  import { useForecastStore } from '../stores/forecastAPI';
   
   const selectedItem = ref();
+  let locationCityState = ref("");
+  let locationCoordinates = ref([]);
 
   const citiesStore = useCitiesStore();
 
   citiesStore.getCities();
 
   const weatherStore = useWeatherStore();
+
+  const forecastStore = useForecastStore();
+
+  const parseLocData = (locObj) => {
+    if (locObj) {
+      locationCityState = locObj.city;
+      locationCoordinates = locObj.location.split(',');
+      weatherStore.lat = locationCoordinates[0];
+      forecastStore.lat = locationCoordinates[0];
+      weatherStore.lon = locationCoordinates[1]; 
+      forecastStore.lon = locationCoordinates[1];
+      weatherStore.getCurrentWeather();
+      forecastStore.getForecastData();
+    };
+  };
  
   const storeLocWeather = () =>{ 
     if (!selectedItem.value) {
       weatherStore.locationData = {};
-      weatherStore.locationCityState = "";
-      weatherStore.locationCoordinates = [];
       weatherStore.lat = "";
       weatherStore.lon = ""; 
       weatherStore.currWeatherData = {};
@@ -44,7 +60,7 @@
       weatherStore.currPressure = 0;  
     } else {
       weatherStore.locationData = selectedItem.value;
-      weatherStore.parseLocData(selectedItem.value);
+      parseLocData(selectedItem.value);
     };
   };
 

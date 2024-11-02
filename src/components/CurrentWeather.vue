@@ -50,11 +50,9 @@
 
   const weatherStore = useWeatherStore();
 
-  const { currTemp, currWeatherShortDescr, currWeatherIcon, currWindSpeed, currHumidity, currPressure } = storeToRefs( weatherStore ); 
+  const { lat, lon, currTemp, currWeatherShortDescr, currWeatherIcon, currWindSpeed, currHumidity, currPressure } = storeToRefs( weatherStore ); 
 
   const getWeatherIcon = () => {
-    console.log('--- inside getWeatherIcon function ---');
-
     if (currWeatherIcon.value) {
       weatherIconsArr.value = weatherIconsArr;
       weatherIconsArr.value.forEach( item => {
@@ -118,7 +116,7 @@
     grid-column: 1/5;
     grid-row: 2/3;
     color:#fff;
-    font-size: clamp(3vw, 2.5vw, 3.5vw);
+    font-size: clamp(3.5vw, 4vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -129,7 +127,7 @@
     grid-column: 5/9;
     grid-row: 2/3;
     color:#fff;
-    font-size: clamp(3vw, 2.5vw, 3.5vw);
+    font-size: clamp(3.5vw, 4vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,7 +138,7 @@
     grid-column: 9/13;
     grid-row: 2/3;
     color:#fff;
-    font-size: clamp(3vw, 2.5vw, 3.5vw);
+    font-size: clamp(3.5vw, 4vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,7 +149,7 @@
     grid-column: 1/5;
     grid-row: 3/4;
     color:#fff;
-    font-size: clamp(3vw, 2.5vw, 3.5vw);
+    font-size: clamp(3.5vw, 4vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,7 +160,7 @@
     grid-column: 5/9;
     grid-row: 3/4;
     color:#fff;
-    font-size: clamp(3vw, 2.5vw, 3.5vw);
+    font-size: clamp(3.5vw, 4vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,7 +171,7 @@
     grid-column: 9/13;
     grid-row: 3/4;
     color:#fff;
-    font-size: clamp(3vw, 2.5vw, 3.5vw);
+    font-size: clamp(3.5vw, 4vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
