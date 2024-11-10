@@ -82,6 +82,7 @@
     grid-column: 1/7;
     text-align: center;
     color: #fff;
+    font-size: clamp(3.5vw, 4vw, 5vw);
   }
   #content {
     display:grid;

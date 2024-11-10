@@ -14,7 +14,10 @@
     </p>
     
     <main>Weather Map</main>
-    <section>Forecast</section>
+
+    <section>
+      <Forecast />
+    </section>
   </div>
 </template>
 
@@ -22,6 +25,7 @@
   // import { RouterLink, RouterView } from 'vue-router'
   import LocationBar from './components/LocationBar.vue'
   import CurrentWeather from './components/CurrentWeather.vue';
+  import Forecast from './components/Forecast.vue';
 </script>
 
 <style scoped>
@@ -87,11 +91,9 @@
 
   section {
     grid-area: section;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    padding: 30px;  
+    margin: 0;
+    /* background: #fff;
+    padding: 30px;   */
   }
 
   @media screen and (min-width: 1024px) {
@@ -111,6 +113,14 @@
       'section main main main'
       'section main main main'
       'section main main main';
+    }
+    main {
+      grid-area: main;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      padding: 20px;  
     }
   }
 
