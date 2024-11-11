@@ -66,23 +66,16 @@
 
   };
 
-  watch( () => weatherStore, (newData) => {
-
-    getWeatherIcon();
-
-  }, {deep:true})
-
-;
+  watch( () => weatherStore, (newData) => { getWeatherIcon(); }, {deep:true});
 
 </script>
 
 <style scoped>
-
   .curr-weather-hdr {
     grid-column: 1/7;
     text-align: center;
     color: #fff;
-    font-size: clamp(3.5vw, 4vw, 5vw);
+    font-size: 6vw;
   }
   #content {
     display:grid;
@@ -90,24 +83,18 @@
     grid-auto-rows: minmax(30px, auto);
     grid-gap: 5px;
     color: #fff;
-    /* background: brown;
-    padding: 10px;   */
   }
   #weather-icon {
     grid-column: 1/5;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: yellow;
-    padding: 10px;  */
   }
   #weather-img-container {
     grid-column: 1/5;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: yellow;
-    padding: 10px;  */
   }
   #weather-img {
     width: 100%;
@@ -121,8 +108,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: red;
-    padding: 10px;  */
   }
   #humidity-hdr {
     grid-column: 5/9;
@@ -132,8 +117,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: skyblue;
-    padding: 10px;  */
   }
   #pressure-hdr {
     grid-column: 9/13;
@@ -143,8 +126,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: lawngreen;
-    padding: 10px;  */
   }
   #wind-val {
     grid-column: 1/5;
@@ -154,8 +135,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: red;
-    padding: 10px;  */
   }
   #humidity-val {
     grid-column: 5/9;
@@ -165,8 +144,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: skyblue;
-    padding: 10px;  */
   }
   #pressure-val {
     grid-column: 9/13;
@@ -176,8 +153,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: lawngreen;
-    padding: 10px;  */
   }
   .temp {
     grid-column: 5/9;
@@ -186,16 +161,12 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    /* background: orange;
-    padding: 10px;   */
   }
   #temp-nbr {
     position: sticky;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* font-size: clamp(2.75em, 4em, 5em); */
-    /* font-size: 12vw; */
     font-size: clamp(11vw, 12vw, 13vw);
     padding: 1rem;
     color: #fff;
@@ -214,10 +185,8 @@
     margin-left: 0;
     color: #fff;
   }
-
   .description {
     grid-column: 9/13;
-    /* background: purple; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -225,9 +194,10 @@
     padding: 10px;  
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 500px) and (max-width: 1023px)  {
     .curr-weather-hdr {
       grid-column: 1/7;
+      font-size: 5vw;
     }
     #temp-nbr {
       position: sticky;
@@ -257,6 +227,7 @@
   @media screen and (min-width: 1024px) {
     .curr-weather-hdr {
       grid-column: 1/7;
+      font-size: 2.25vw;
     }
     #temp-nbr {
       position: sticky;
@@ -293,7 +264,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* background: red; */
     }
     #humidity-hdr {
       grid-column: 5/9;
@@ -303,7 +273,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* background: skyblue; */
     }
     #pressure-hdr {
       grid-column: 9/13;
@@ -313,7 +282,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* background: lawngreen; */
     }
     #wind-val {
       grid-column: 1/5;
@@ -323,7 +291,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* background: red; */
     }
     #humidity-val {
       grid-column: 5/9;
@@ -333,7 +300,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* background: skyblue; */
     }
     #pressure-val {
       grid-column: 9/13;
@@ -343,7 +309,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* background: lawngreen; */
     }
   }
 
