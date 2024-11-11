@@ -1,8 +1,8 @@
 <template>
 
-  <h2 class="curr-weather-hdr">Current Weather</h2>
+  <h2 v-if="currTemp" class="curr-weather-hdr">Current Weather</h2>
 
-  <div id="content">
+  <div v-if="currTemp" id="content">
     <div id="weather-icon">
       <div id="weather-img-container">
         <img id="weather-img" :src=weatherIconImg />
@@ -31,7 +31,7 @@
       <p>{{ currWindSpeed }} mph</p>
     </div>
     <div id="humidity-val">
-      <p>{{ currHumidity }}%</p>
+      <p>{{ currHumidity }} %</p>
     </div>
     <div id="pressure-val">
       <p>{{ currPressure }} in</p>
@@ -50,7 +50,7 @@
 
   const weatherStore = useWeatherStore();
 
-  const { lat, lon, currTemp, currWeatherShortDescr, currWeatherIcon, currWindSpeed, currHumidity, currPressure } = storeToRefs( weatherStore ); 
+  const { lat, lon, currTemp, currWeatherShortDescr, currWeatherIcon, currWindSpeed, currHumidity, currPressure, currWeatherData } = storeToRefs( weatherStore ); 
 
   const getWeatherIcon = () => {
     if (currWeatherIcon.value) {

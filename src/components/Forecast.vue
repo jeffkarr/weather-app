@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 class="forecast-hdr">5 Day Forecast</h2>
-    <div id="content">
+    <h2 v-if="fcDataSumArr.length > 0"class="forecast-hdr">5 Day Forecast</h2>
+    <div v-if="fcDataSumArr.length > 0" id="content">
       <div id="day1">
         <h4>{{ day1Date }}</h4>
         <div class="icon-container">
@@ -183,12 +183,7 @@
     };
   };
 
-
-  watch( () => forecastStore, (newData) => {
-
-    buildDayObjs();
-
-  }, {deep:true});
+  watch( () => forecastStore, (newData) => { buildDayObjs(); }, {deep:true});
 
 </script>
 
@@ -212,11 +207,12 @@
   }
   #day1 {
     grid-column: 1/3;
-    background: skyblue;
+    background: #9cb2c0;;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
+    border-right: 1px solid blueviolet;
     padding: 5px; 
   }
   #day2 {
@@ -226,29 +222,32 @@
     flex-direction: column;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
+    border-right: 1px solid blueviolet;
     padding: 5px; 
   }
   #day3 {
     grid-column: 5/7;
-    background: brown;
+    background: #69e0ad;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
+    border-right: 1px solid blueviolet;
     padding: 5px; 
   }
   #day4 {
     grid-column: 7/9;
-    background: grey;
+    background: #BEBECF;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
+    border-right: 1px solid blueviolet;
     padding: 5px; 
   }
   #day5 {
     grid-column: 9/11;
-    background: teal;
+    background: #22cfcf;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -268,10 +267,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* font-size: clamp(2.75em, 4em, 5em); */
-    /* font-size: 12vw; */
     font-size:clamp(3.5vw, 4vw, 5vw);
-    padding: .25em;
+    padding: 0em .25em .25em .25em;
     color: #fff;
   }
   .degrees {
@@ -331,12 +328,13 @@
     }
     #day1 {
       grid-column: 1/3;
-      background: skyblue;
+      background: #9cb2c0;
       display: flex;
       flex-direction: column;
       align-self: start;
       justify-content: center;
       font-size: 1.75vw;
+      border-right: 1px solid blueviolet
       /* padding-left: .3em;  */
     }
     #day2 {
@@ -347,31 +345,34 @@
       align-self: start;
       justify-content: center;
       font-size: 1.75vw;
+      border-right: 1px solid blueviolet
       /* padding-left: .3em;  */
     }
     #day3 {
       grid-column: 5/7;
-      background: brown;
+      background: #69e0ad;
       display: flex;
       flex-direction: column;
       align-self: start;
       justify-content: center;
       font-size: 1.75vw;
+      border-right: 1px solid blueviolet
       /* padding-left: .3em;  */
     }
     #day4 {
       grid-column: 7/9;
-      background: grey;
+      background: #BEBECF;
       display: flex;
       flex-direction: column;
       align-self: start;
       justify-content: center;
       font-size: 1.75vw;
+      border-right: 1px solid blueviolet
       /* padding-left: 6px;  */
     }
     #day5 {
       grid-column: 9/11;
-      background: teal;
+      background: #22cfcf;;
       display: flex;
       flex-direction: column;
       align-self: start;

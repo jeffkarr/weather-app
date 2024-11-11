@@ -31,6 +31,8 @@
 
   const forecastStore = useForecastStore();
 
+  const emit = defineEmits(['locationCleared']);
+
   const parseLocData = (locObj) => {
     if (locObj) {
       locationCityState = locObj.city;
@@ -57,10 +59,14 @@
       weatherStore.currWindSpeed = 0;
       weatherStore.currWindGust = 0;
       weatherStore.currWindDirection = 0;  
-      weatherStore.currPressure = 0;  
+      weatherStore.currPressure = 0;
+      forecastStore.forecastData = {};
+      forecastStore.fcDataSumArr = []; 
+      emit('locationCleared', true); 
     } else {
       weatherStore.locationData = selectedItem.value;
       parseLocData(selectedItem.value);
+      emit('locationCleared', false); 
     };
   };
 

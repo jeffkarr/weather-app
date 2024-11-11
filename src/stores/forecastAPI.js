@@ -3,7 +3,6 @@ import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
 
 export const useForecastStore = defineStore('forecastData', () => {
-
   let lat = ref("");
   let lon = ref("");
   let forecastData = ref({});
@@ -12,15 +11,16 @@ export const useForecastStore = defineStore('forecastData', () => {
   let dayText = "";
   let dayFcObj = {};
   
-
   const tabulateFcData = (fcListArr) => {
     let currDayText = dayjs().format('YYYY-MM-DD');
     fcListArr.forEach( (fcItem, fcIdx) => {
-      // if (fcIdx == fcListArr.length - 1) {
-      //   fcDataSumArr.value.push(dayFcObj);
-      // };
+      // if at end of fcListArray, push the last dayFcObj to the fcDataSumArr.
+      if (fcIdx == fcListArr.length - 1) {
+        fcDataSumArr.value.push(dayFcObj);
+      };
       dayText = fcItem.dt_txt.substr(0, 10);
       if (dayText !== currDayText) {
+        // summarize the forecast data for the saved date. 
         if (dayText === dayTextSaved ) {
           if (fcItem.main.temp > dayFcObj.hiTemp) dayFcObj.hiTemp = parseInt(fcItem.main.temp);
           if (fcItem.main.temp < dayFcObj.lowTemp) dayFcObj.lowTemp = parseInt(fcItem.main.temp);
@@ -29,6 +29,7 @@ export const useForecastStore = defineStore('forecastData', () => {
           if (fcItem.main.humidity > dayFcObj.humidity) dayFcObj.humidity = parseInt(fcItem.main.humidity);
           if (fcItem.weather[0].icon > dayFcObj.icon) dayFcObj.icon = fcItem.weather[0].icon;
         } else {
+          // initialize the very first dayFcObj
           if (dayTextSaved === '') {
             dayTextSaved = dayText;
             dayFcObj = {
@@ -41,6 +42,8 @@ export const useForecastStore = defineStore('forecastData', () => {
               icon: fcItem.weather[0].icon  
             };
           } else {
+            // when dayText has changed, push the dayFcObj to fcDataSumArr. 
+            // Then, save the dayText and initialze a new dayFcObj for this new date.     
             fcDataSumArr.value.push(dayFcObj);
             dayTextSaved = dayText;
             dayFcObj = {
@@ -56,8 +59,6 @@ export const useForecastStore = defineStore('forecastData', () => {
         };
       };
     })
-    // console.log(`--- fcDataSumArr ---`);
-    // console.log(fcDataSumArr.value);
   };
   
   const getForecastData = async () => {
