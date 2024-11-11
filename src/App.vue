@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <header>
-        <LocationBar />
+        <LocationBar @locationCleared="(isCleared) => (hideVectorPortal = isCleared)" />
     </header>
     <p id="simplemap">
       <a style="color:white;text-decoration:none;"href="https://simplemaps.com/data/us-cities" target="_blank">"United States Cities Database by simplemaps is licensed under CC BY 4.0</a>
@@ -9,12 +9,12 @@
     <aside>
       <CurrentWeather />
     </aside>
-    <p id="vectorportal">
+    <p v-if="!hideVectorPortal" id="vectorportal">
       <a style="color:white;text-decoration:none;" href=" https://www.vectorportal.com" target="_blank">Weather Image by Vectorportal.com</a>,  <a style="color:white;text-decoration:none;" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
     </p>
-    
-    <main>Weather Map</main>
-
+    <main>
+      Weather Map
+    </main>
     <section>
       <Forecast />
     </section>
@@ -23,9 +23,12 @@
 
 <script setup>
   // import { RouterLink, RouterView } from 'vue-router'
+  import { ref } from 'vue';
   import LocationBar from './components/LocationBar.vue'
   import CurrentWeather from './components/CurrentWeather.vue';
   import Forecast from './components/Forecast.vue';
+
+  const hideVectorPortal = ref(false);
 </script>
 
 <style scoped>
@@ -62,7 +65,7 @@
     grid-area: simplemap;
     display: flex;
     justify-content: center;
-    font-size: .6em;
+    font-size: .7em;
   }
   aside {
     grid-area: aside;
@@ -74,11 +77,12 @@
     grid-area: vectorportal;
     display: flex;
     justify-content: center;
-    font-size: .6em;
+    font-size: .7em;
     color: #fff;
   }
   #vectorportal-attr a {
     color: #fff;
+    height: auto;
   } 
   main {
     grid-area: main;
@@ -88,7 +92,6 @@
     background: #fff;
     padding: 30px;  
   }
-
   section {
     grid-area: section;
     margin: 0;
