@@ -5,116 +5,116 @@
       <div id="day1">
         <h4>{{ day1Date }}</h4>
         <div class="icon-container">
-          <img id="day1-img" src="../assets/images/weather/sunny.png" />
+          <img id="day1-img" :src=day1Icon />
         </div>
         <div class="temp">
-          {{ 80 }}
+          {{ day1Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 32 }} in</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day1Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ 4 }} mph</div>
+          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day1Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 12 }} mph</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day1Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day2">
         <h4>{{ day2Date }}</h4>
         <div class="icon-container">
-          <img id="day2-img" src="../assets/images/weather/sunny.png" width="60" />
+          <img id="day2-img" :src=day2Icon />
         </div>
         <div class="temp">
-          {{ 80 }}
+          {{ day2Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 32 }} in</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day2Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ 4 }} mph</div>
+          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day2Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 12 }} mph</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day2Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day3">
         <h4>{{ day3Date }}</h4>
         <div class="icon-container">
-          <img id="day3-img" src="../assets/images/weather/sunny.png" width="60" />
+          <img id="day3-img" :src=day3Icon />
         </div>
         <div class="temp">
-          {{ 101 }}
+          {{ day3Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 32 }} in</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day3Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ 4 }} mph</div>
+          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day3Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 12 }} mph</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day3Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day4">
         <h4>{{ day4Date }}</h4>
         <div class="icon-container">
-          <img id="day4-img" src="../assets/images/weather/sunny.png" width="60" />
+          <img id="day4-img" :src=day4Icon />
         </div>
         <div class="temp">
-          {{ 101 }}
+          {{ day4Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 32 }} in</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day4Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ 4 }} mph</div>
+          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day4Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 12 }} mph</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day4Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day5">
         <h4>{{ day5Date }}</h4>
         <div class="icon-container">
-          <img id="day5-img" src="../assets/images/weather/sunny.png" width="60" />
+          <img id="day5-img" :src=day5Icon />
         </div>
         <div class="temp">
-          {{ -5 }}
+          {{ day5Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;</span>{{ 32 }} in</div>
+          <div><span>&nbsp;</span>{{ day5Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ 4 }} mph</div>
+          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day5Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ 12 }} mph</div>
+          <div><span>&nbsp;&nbsp;</span>{{ day5Obj.gust }} mph</div>
         </div>
       </div>
     </div>
@@ -122,23 +122,73 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import dayjs from 'dayjs';
+  import { storeToRefs } from 'pinia'
+  import { useForecastStore } from '../stores/forecastAPI';
+  import weatherIconsArr from '../data/weather-icons';
+  
+  const forecastStore = useForecastStore();
 
+  const { fcDataSumArr } = storeToRefs( forecastStore ); 
+
+  let day1Obj = ref({});
+  let day2Obj = ref({});
+  let day3Obj = ref({});
+  let day4Obj = ref({});
+  let day5Obj = ref({});
   let day1Date = ref('');
   let day2Date = ref('');
   let day3Date = ref('');
   let day4Date = ref('');
   let day5Date = ref('');
-  
+  let day1Icon = ref('');
+  let day2Icon = ref('');
+  let day3Icon = ref('');
+  let day4Icon = ref('');
+  let day5Icon = ref('');
+
   const getDates= () => {
-    day1Date = dayjs().add(1, 'day').format('ddd D');
-    day2Date = dayjs().add(2, 'days').format('ddd D');
-    day3Date = dayjs().add(3, 'days').format('ddd D');
-    day4Date = dayjs().add(4, 'days').format('ddd D');
-    day5Date = dayjs().add(5, 'days').format('ddd D');
-  } 
-  getDates();
+    day1Date.value = dayjs().add(1, 'day').format('ddd D');
+    day2Date.value = dayjs().add(2, 'days').format('ddd D');
+    day3Date.value = dayjs().add(3, 'days').format('ddd D');
+    day4Date.value = dayjs().add(4, 'days').format('ddd D');
+    day5Date.value = dayjs().add(5, 'days').format('ddd D');
+  };
+  
+  const getWeatherIcon = (iconVal) => {
+    weatherIconsArr.value = weatherIconsArr;
+    let icon_result = "";
+    weatherIconsArr.value.forEach( item => {
+      if (item.icon_id === iconVal) {
+        icon_result = item.icon_img;
+      };
+    }); 
+    return icon_result;
+  };
+
+  const buildDayObjs = () => {
+    if (fcDataSumArr.value.length > 0 ) {
+      day1Obj.value = fcDataSumArr.value[0];
+      day2Obj.value = fcDataSumArr.value[1];
+      day3Obj.value = fcDataSumArr.value[2];
+      day4Obj.value = fcDataSumArr.value[3];
+      day5Obj.value = fcDataSumArr.value[4];
+      day1Icon.value = getWeatherIcon(fcDataSumArr.value[0].icon); 
+      day2Icon.value = getWeatherIcon(fcDataSumArr.value[1].icon); 
+      day3Icon.value = getWeatherIcon(fcDataSumArr.value[2].icon);
+      day4Icon.value = getWeatherIcon(fcDataSumArr.value[3].icon);
+      day5Icon.value = getWeatherIcon(fcDataSumArr.value[4].icon);
+      getDates();
+    };
+  };
+
+
+  watch( () => forecastStore, (newData) => {
+
+    buildDayObjs();
+
+  }, {deep:true});
 
 </script>
 
@@ -209,7 +259,7 @@
     padding: 5px; 
   }
   img {
-    width: 60px;
+    width: 50px;
   }
   .icon-container {
     display: flex;
