@@ -14,15 +14,15 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day1Obj.humidity }} %</div>
+          <div>{{ day1Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day1Obj.wind }} mph</div>
+          <div class="wind-label">Wind</div>
+          <div> {{ day1Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day1Obj.gust }} mph</div>
+          <div>{{ day1Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day2">
@@ -37,15 +37,15 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day2Obj.humidity }} %</div>
+          <div>{{ day2Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day2Obj.wind }} mph</div>
+          <div class="wind-label">Wind</div>
+          <div>{{ day2Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day2Obj.gust }} mph</div>
+          <div>{{ day2Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day3">
@@ -60,15 +60,15 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day3Obj.humidity }} %</div>
+          <div>{{ day3Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day3Obj.wind }} mph</div>
+          <div class="wind-label">Wind</div>
+          <div>{{ day3Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day3Obj.gust }} mph</div>
+          <div>{{ day3Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day4">
@@ -83,15 +83,15 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day4Obj.humidity }} %</div>
+          <div>{{ day4Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day4Obj.wind }} mph</div>
+          <div>{{ day4Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day4Obj.gust }} mph</div>
+          <div>{{ day4Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day5">
@@ -106,15 +106,15 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div><span>&nbsp;</span>{{ day5Obj.humidity }} %</div>
+          <div>{{ day5Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div>Wind</div>
-          <div><span>&nbsp;&nbsp;&nbsp;</span>{{ day5Obj.wind }} mph</div>
+          <div class="wind-label">Wind</div>
+          <div>{{ day5Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div><span>&nbsp;&nbsp;</span>{{ day5Obj.gust }} mph</div>
+          <div>{{ day5Obj.gust }} mph</div>
         </div>
       </div>
     </div>
@@ -197,23 +197,24 @@
     grid-column: 1/7;
     text-align: center;
     color: #fff;
-    font-size: clamp(3.5vw, 4vw, 5vw);
+    font-size: 6vw;
     margin-bottom: .5em;;
   }
   #content {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-auto-rows: minmax(30px, auto);
-    grid-gap: 5px;
     color: #FFF;
     background: black;
+  }
+  h4 {
+    text-align: center;
   }
   #day1 {
     grid-column: 1/3;
     background: skyblue;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     padding: 5px; 
@@ -223,7 +224,6 @@
     background: tan;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     padding: 5px; 
@@ -233,7 +233,6 @@
     background: brown;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     padding: 5px; 
@@ -243,7 +242,6 @@
     background: grey;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     padding: 5px; 
@@ -253,7 +251,6 @@
     background: teal;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     padding: 5px; 
@@ -274,7 +271,7 @@
     /* font-size: clamp(2.75em, 4em, 5em); */
     /* font-size: 12vw; */
     font-size:clamp(3.5vw, 4vw, 5vw);
-    padding: 1rem;
+    padding: .25em;
     color: #fff;
   }
   .degrees {
@@ -293,20 +290,20 @@
   .wind {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-around;
     font-size: clamp(1.5vw, 2vw, 2.5vw);
   }
   .wind-gust {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-around;
     color:#fff;
     font-size: clamp(1.5vw, 2vw, 2.5vw);
   }
   .humidity {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-around;
     color:#fff;
     font-size: clamp(1.5vw, 2vw, 2.5vw);
   }
@@ -314,59 +311,73 @@
   @media screen and (min-width: 500px) and (max-width: 1023px)  {
     img {
       width: 80px;
+    }
+    .forecast-hdr {
+      grid-column: 1/7;
+      text-align: center;
+      color: #fff;
+      font-size: 5vw;
+      margin-bottom: .5em;;
     } 
   }
   
   @media screen and (min-width: 1024px) {
+    .forecast-hdr {
+      grid-column: 1/7;
+      text-align: center;
+      color: #fff;
+      font-size: 2.25vw;
+      margin-bottom: .5em;;
+    }
     #day1 {
       grid-column: 1/3;
       background: skyblue;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-self: start;
       justify-content: center;
       font-size: 1.75vw;
-      padding-left: .5em; 
+      /* padding-left: .3em;  */
     }
     #day2 {
       grid-column: 3/5;
       background: tan;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-self: start;
       justify-content: center;
       font-size: 1.75vw;
-      padding-left: .5em; 
+      /* padding-left: .3em;  */
     }
     #day3 {
       grid-column: 5/7;
       background: brown;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-self: start;
       justify-content: center;
       font-size: 1.75vw;
-      padding-left: .5em; 
+      /* padding-left: .3em;  */
     }
     #day4 {
       grid-column: 7/9;
       background: grey;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-self: start;
       justify-content: center;
       font-size: 1.75vw;
-      padding-left: .5em; 
+      /* padding-left: 6px;  */
     }
     #day5 {
       grid-column: 9/11;
       background: teal;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-self: start;
       justify-content: center;
       font-size: 1.75vw;
-      padding-left: .5em; 
+      /* padding-left: 9px;  */
     }
     .temp {
       position: sticky;

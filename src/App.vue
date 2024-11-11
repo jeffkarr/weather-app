@@ -92,8 +92,6 @@
   section {
     grid-area: section;
     margin: 0;
-    /* background: #fff;
-    padding: 30px;   */
   }
 
   @media screen and (min-width: 1024px) {
