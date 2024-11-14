@@ -104,7 +104,7 @@
     grid-column: 1/5;
     grid-row: 2/3;
     color:#fff;
-    font-size: clamp(3.5vw, 4vw, 5vw);
+    font-size: clamp(4vw, 4.5vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,7 +113,7 @@
     grid-column: 5/9;
     grid-row: 2/3;
     color:#fff;
-    font-size: clamp(3.5vw, 4vw, 5vw);
+    font-size: clamp(4vw, 4.5vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,7 +122,7 @@
     grid-column: 9/13;
     grid-row: 2/3;
     color:#fff;
-    font-size: clamp(3.5vw, 4vw, 5vw);
+    font-size: clamp(4vw, 4.5vw, 5vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -227,7 +227,7 @@
   @media screen and (min-width: 1024px) {
     .curr-weather-hdr {
       grid-column: 1/7;
-      font-size: 2.25vw;
+      font-size: clamp(2vw, 2.5vw, 2.5vw);
     }
     #temp-nbr {
       position: sticky;
@@ -260,7 +260,7 @@
       grid-column: 1/5;
       grid-row: 2/3;
       color:#fff;
-      font-size: 1.75vw;
+      font-size: 1.5vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -269,7 +269,7 @@
       grid-column: 5/9;
       grid-row: 2/3;
       color:#fff;
-      font-size: 1.75vw;
+      font-size: 1.5vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -278,7 +278,7 @@
       grid-column: 9/13;
       grid-row: 2/3;
       color:#fff;
-      font-size: 1.75vw;
+      font-size: 1.5vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -287,7 +287,7 @@
       grid-column: 1/5;
       grid-row: 3/4;
       color:#fff;
-      font-size: 1.75vw;
+      font-size: 1.5vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -296,7 +296,7 @@
       grid-column: 5/9;
       grid-row: 3/4;
       color:#fff;
-      font-size: 1.75vw;
+      font-size: 1.5vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -305,7 +305,7 @@
       grid-column: 9/13;
       grid-row: 3/4;
       color:#fff;
-      font-size: 1.75vw;
+      font-size: 1.5vw;
       display: flex;
       align-items: center;
       justify-content: center;

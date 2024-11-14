@@ -1,15 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LocationBar from '../components/LocationBar.vue'
+import HomePage from '../pages/HomePage.vue'
+import MapPage from '../pages/MapPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: LocationBar
+      name: 'HomePage',
+      component: HomePage
+    },
+    {
+      path: '/map',
+      name: 'MapPage',
+      component: MapPage
     }
   ]
-})
+});
 
-export default router
+export default router;
