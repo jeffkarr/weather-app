@@ -7,10 +7,15 @@
         <div class="icon-container">
           <img id="day1-img" :src=day1Icon />
         </div>
-        <div class="temp">
+        <div class="hi-temp">
           {{ day1Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
+        </div>
+        <div class="low-temp">
+          {{ day1Obj.lowTemp }}
+          <span class="low-degrees">o</span>
+          <span class="low-fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
@@ -30,10 +35,15 @@
         <div class="icon-container">
           <img id="day2-img" :src=day2Icon />
         </div>
-        <div class="temp">
+        <div class="hi-temp">
           {{ day2Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
+        </div>
+        <div class="low-temp">
+          {{ day2Obj.lowTemp }}
+          <span class="low-degrees">o</span>
+          <span class="low-fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
@@ -53,10 +63,15 @@
         <div class="icon-container">
           <img id="day3-img" :src=day3Icon />
         </div>
-        <div class="temp">
+        <div class="hi-temp">
           {{ day3Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
+        </div>
+        <div class="low-temp">
+          {{ day3Obj.lowTemp }}
+          <span class="low-degrees">o</span>
+          <span class="low-fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
@@ -76,10 +91,15 @@
         <div class="icon-container">
           <img id="day4-img" :src=day4Icon />
         </div>
-        <div class="temp">
+        <div class="hi-temp">
           {{ day4Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
+        </div>
+        <div class="low-temp">
+          {{ day4Obj.lowTemp }}
+          <span class="low-degrees">o</span>
+          <span class="low-fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
@@ -99,10 +119,15 @@
         <div class="icon-container">
           <img id="day5-img" :src=day5Icon />
         </div>
-        <div class="temp">
+        <div class="hi-temp">
           {{ day5Obj.hiTemp }}
           <span class="degrees">o</span>
           <span class="fahrenheit">F</span>
+        </div>
+        <div class="low-temp">
+          {{ day5Obj.lowTemp }}
+          <span class="low-degrees">o</span>
+          <span class="low-fahrenheit">F</span>
         </div>
         <div class="humidity">
           <div>Humidity</div>
@@ -215,7 +240,7 @@
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     border-right: 1px solid blueviolet;
     border-radius: 6px 0px 0px 6px;
-    padding: 5px; 
+    padding: .2em; 
   }
   #day2 {
     grid-column: 3/5;
@@ -225,7 +250,7 @@
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     border-right: 1px solid blueviolet;
-    padding: 5px; 
+    padding: .2em;  
   }
   #day3 {
     grid-column: 5/7;
@@ -235,7 +260,7 @@
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     border-right: 1px solid blueviolet;
-    padding: 5px; 
+    padding: .2em; 
   }
   #day4 {
     grid-column: 7/9;
@@ -245,7 +270,7 @@
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     border-right: 1px solid blueviolet;
-    padding: 5px; 
+    padding: .2em;  
   }
   #day5 {
     grid-column: 9/11;
@@ -254,7 +279,7 @@
     flex-direction: column;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
-    padding: 5px; 
+    padding: .2em;  
     border-radius: 0px 6px 6px 0px;
   }
   img {
@@ -265,20 +290,35 @@
     align-items: center;
     justify-content: center;
   }
-  .temp {
+  .hi-temp {
     position: sticky;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size:clamp(3.5vw, 4vw, 5vw);
-    padding: 0em .25em .25em .25em;
+    padding: 0em .25em 0em .25em;
     color: #fff;
   }
+  .low-temp {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+    padding: 0em .25em .25em .25em;
+    color: #000d33;
+   }
   .degrees {
     position: sticky;
     padding-bottom: 1rem;
     font-size: 1.25vh;
     color: #fff;
+  }
+  .low-degrees {
+    position: sticky;
+    padding-bottom: 1rem;
+    font-size: 1.25vh;
+    color: #000d33;
   }
   .fahrenheit {
     position: sticky;
@@ -286,6 +326,13 @@
     padding-left: .25rem;
     margin-left: 0;
     color: #fff;
+  }
+  .low-fahrenheit {
+    position: sticky;
+    font-size: 2.5vw;
+    padding-left: .25rem;
+    margin-left: 0;
+    color: #000d33;
   }
   .wind {
     display: flex;
@@ -338,7 +385,6 @@
       justify-content: center;
       font-size: 1.75vw;
       border-right: 1px solid blueviolet
-      /* padding-left: .3em;  */
     }
     #day2 {
       grid-column: 3/5;
@@ -349,7 +395,6 @@
       justify-content: center;
       font-size: 1.75vw;
       border-right: 1px solid blueviolet
-      /* padding-left: .3em;  */
     }
     #day3 {
       grid-column: 5/7;
@@ -360,7 +405,6 @@
       justify-content: center;
       font-size: 1.75vw;
       border-right: 1px solid blueviolet
-      /* padding-left: .3em;  */
     }
     #day4 {
       grid-column: 7/9;
@@ -371,7 +415,6 @@
       justify-content: center;
       font-size: 1.75vw;
       border-right: 1px solid blueviolet
-      /* padding-left: 6px;  */
     }
     #day5 {
       grid-column: 9/11;
@@ -381,18 +424,23 @@
       align-self: start;
       justify-content: center;
       font-size: 1.75vw;
-      /* padding-left: 9px;  */
     }
-    .temp {
+    .hi-temp {
       position: sticky;
       display: flex;
       align-items: center;
       justify-content: center;
-      /* font-size: clamp(2.75em, 4em, 5em); */
-      /* font-size: 12vw; */
       font-size: 1.9vw;
-      /* padding: 1em; */
       color: #fff;
+    }
+    .low-temp {
+      position: sticky;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5vw;
+      padding: 0em .25em 0em .25em;
+      color: #000d33;
     }
     .degrees {
       position: sticky;
@@ -400,12 +448,25 @@
       font-size: 1vh;
       color: #fff;
     }
+    .low-degrees {
+      position: sticky;
+      padding-bottom: 1rem;
+      font-size: 1vh;
+      color: #000d33;
+    }
     .fahrenheit {
       position: sticky;
       font-size: 2vh;
       padding-left: .25rem;
       margin-left: 0;
       color: #fff;
+    }
+    .low-fahrenheit {
+      position: sticky;
+      font-size: 1vw;
+      padding-left: .25rem;
+      margin-left: 0;
+      color: #000d33;
     }
     .humidity {
       flex-flow: column;
