@@ -201,6 +201,7 @@
     grid-auto-rows: minmax(30px, auto);
     color: #FFF;
     background: black;
+    border-radius: 6px;
   }
   h4 {
     text-align: center;
@@ -213,6 +214,7 @@
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     border-right: 1px solid blueviolet;
+    border-radius: 6px 0px 0px 6px;
     padding: 5px; 
   }
   #day2 {
@@ -253,6 +255,7 @@
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
     padding: 5px; 
+    border-radius: 0px 6px 6px 0px;
   }
   img {
     width: 50px;

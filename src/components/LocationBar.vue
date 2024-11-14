@@ -6,7 +6,7 @@
       showClear filter
       :options="citiesStore.items" 
       optionLabel="city"
-      placeholder="Select a City" 
+      placeholder="Select a city for weather information" 
       :virtualScrollerOptions="{ itemSize: 16 }"
       :resetFilterOnHide=true
     />
@@ -32,6 +32,9 @@
   const forecastStore = useForecastStore();
 
   const emit = defineEmits(['locationCleared']);
+
+  // on initial load.
+  emit('locationCleared', true); 
 
   const parseLocData = (locObj) => {
     if (locObj) {
@@ -74,16 +77,18 @@
 
 <style scoped>
   .loc-select {
-    width: 90vw;
+    width: 100vw;
     height: 3rem;
+    font-size: 16px;
   }
   .p-select {
     text-align: center
   }
 
-  @media screen and (min-width: 1275px) {
+  @media screen and (min-width: 1023px) {
     .loc-select {
       width: 50vw;
+      max-width: 880px;
       height: 3rem;
     }
   }
