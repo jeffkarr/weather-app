@@ -19,10 +19,10 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div>{{ day1Obj.humidity }} %</div>
+          <div class="humidity-val">{{ day1Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div class="wind-label">Wind</div>
+          <div>Wind</div>
           <div> {{ day1Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
@@ -47,10 +47,10 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div>{{ day2Obj.humidity }} %</div>
+          <div class="humidity-val">{{ day2Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div class="wind-label">Wind</div>
+          <div>Wind</div>
           <div>{{ day2Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
@@ -75,10 +75,10 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div>{{ day3Obj.humidity }} %</div>
+          <div class="humidity-val">{{ day3Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div class="wind-label">Wind</div>
+          <div>Wind</div>
           <div>{{ day3Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
@@ -103,7 +103,7 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div>{{ day4Obj.humidity }} %</div>
+          <div class="humidity-val">{{ day4Obj.humidity }} %</div>
         </div>
         <div class="wind">
           <div>Wind</div>
@@ -131,10 +131,10 @@
         </div>
         <div class="humidity">
           <div>Humidity</div>
-          <div>{{ day5Obj.humidity }} %</div>
+          <div class="humidity-val">{{ day5Obj.humidity }} %</div>
         </div>
         <div class="wind">
-          <div class="wind-label">Wind</div>
+          <div>Wind</div>
           <div>{{ day5Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
@@ -472,13 +472,16 @@
       flex-flow: column;
       justify-content: center;
       font-size: 1vw;
-      padding-bottom: 1em;
+    }
+    .humidity-val {
+      flex-flow: column;
+      text-align: center;
+      font-size: 1vw;
     }
     .wind {
       flex-flow: column;
       justify-content: center;
       font-size: 1vw;
-      padding-bottom: 1em;
     }
     .wind-gust {
       flex-flow: column;
