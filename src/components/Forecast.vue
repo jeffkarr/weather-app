@@ -23,11 +23,11 @@
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div> {{ day1Obj.wind }} mph</div>
+          <div class="wind-val"> {{ day1Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div>{{ day1Obj.gust }} mph</div>
+          <div class="gust-val">{{ day1Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day2">
@@ -51,11 +51,11 @@
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div>{{ day2Obj.wind }} mph</div>
+          <div class="wind-val">{{ day2Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div>{{ day2Obj.gust }} mph</div>
+          <div class="gust-val">{{ day2Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day3">
@@ -79,11 +79,11 @@
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div>{{ day3Obj.wind }} mph</div>
+          <div class="wind-val">{{ day3Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div>{{ day3Obj.gust }} mph</div>
+          <div class="gust-val">{{ day3Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day4">
@@ -107,11 +107,11 @@
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div>{{ day4Obj.wind }} mph</div>
+          <div class="wind-val">{{ day4Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div>{{ day4Obj.gust }} mph</div>
+          <div class="gust-val">{{ day4Obj.gust }} mph</div>
         </div>
       </div>
       <div id="day5">
@@ -135,11 +135,11 @@
         </div>
         <div class="wind">
           <div>Wind</div>
-          <div>{{ day5Obj.wind }} mph</div>
+          <div class="wind-val">{{ day5Obj.wind }} mph</div>
         </div>
         <div class="wind-gust">
           <div>Gusts</div>
-          <div>{{ day5Obj.gust }} mph</div>
+          <div class="gust-val">{{ day5Obj.gust }} mph</div>
         </div>
       </div>
     </div>
@@ -306,7 +306,7 @@
     justify-content: center;
     font-size: 3vw;
     padding: 0em .25em .25em .25em;
-    color: #000d33;
+    color: #0000cc;
    }
   .degrees {
     position: sticky;
@@ -334,11 +334,34 @@
     margin-left: 0;
     color: #000d33;
   }
+  .humidity {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    color:#fff;
+    font-size: clamp(1.5vw, 2vw, 2.5vw);
+  }
+  .humidity-val {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    color:#000;
+    font-size: clamp(1.5vw, 2vw, 2.5vw);
+    font-weight: 500;
+  }
   .wind {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     font-size: clamp(1.5vw, 2vw, 2.5vw);
+  }
+  .wind-val {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    font-size: clamp(1.5vw, 2vw, 2.5vw);
+    font-weight: 500;
+    color: #000;
   }
   .wind-gust {
     display: flex;
@@ -347,12 +370,13 @@
     color:#fff;
     font-size: clamp(1.5vw, 2vw, 2.5vw);
   }
-  .humidity {
+  .gust-val {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    color:#fff;
+    color:#000;
     font-size: clamp(1.5vw, 2vw, 2.5vw);
+    font-weight: 500;
   }
 
   @media screen and (min-width: 500px) and (max-width: 1023px)  {
@@ -440,7 +464,7 @@
       justify-content: center;
       font-size: 1.5vw;
       padding: 0em .25em 0em .25em;
-      color: #000d33;
+      color: #0000cc;
     }
     .degrees {
       position: sticky;
@@ -477,17 +501,32 @@
       flex-flow: column;
       text-align: center;
       font-size: 1vw;
+      color: #000;
     }
     .wind {
       flex-flow: column;
       justify-content: center;
       font-size: 1vw;
     }
+    .wind-val {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+      font-size: 1vw;
+      color: #000;
+    }
     .wind-gust {
       flex-flow: column;
       justify-content: start;
       font-size: 1vw;
       padding-bottom: 1em;
+    }
+    .gust-val {
+      flex-flow: column;
+      justify-content: start;
+      font-size: 1vw;
+      padding-bottom: 1em;
+      color: #000;
     }
   }
 
