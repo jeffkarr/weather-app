@@ -46,7 +46,7 @@
       forecastStore.lon = locationCoordinates[1];
       weatherStore.getCurrentWeather();
       forecastStore.getForecastData();
-    };
+    }; 
   };
  
   const storeLocWeather = () =>{ 

@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@maptiler/sdk": "^2.4.1",
+    "@maptiler/weather": "^2.2.0",
     "@primevue/themes": "^4.1.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",

@@ -147,7 +147,7 @@ section {
     top: 50%;
     left: 5%;
     background: rgb(122, 189, 255); /* Fallback color */
-    background: rgba(122, 189, 255, 0.75); /* Black background with 0.5 opacity */
+    background: rgba(122, 189, 255, 0.75); 
     color: #f1f1f1;
     font-size: 4vw;
     width: 90%;
