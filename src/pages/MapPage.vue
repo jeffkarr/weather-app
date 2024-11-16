@@ -109,7 +109,7 @@
       center: [initialState.lng, initialState.lat],
       zoom: initialState.zoom,
       geolocateControl: false,
-      scaleControl: "top-left",
+      scaleControl: false,
       navigationControl: "top-left"
     }));
 
@@ -131,9 +131,9 @@
   .map-wrap {
     position: fixed;
     top: 70px;
-    left: 4vw;
+    left: 25px;
     right: 4vw;
-    width: 92vw;
+    width: 86vw;
     height: 92vh;
   }
   .map {
@@ -144,7 +144,7 @@
   header {
     position: fixed;
     top: 16px;
-    left: 20px;
+    left: 25px;
   }  
   .p-button {
     color:white;
@@ -153,27 +153,101 @@
   }
   .mapBtns {
     position: fixed;
-    display: flex;
-    flex-direction: column;
+    column-width: 87px;
+    column-count: 1;
     top: 210px;
-    left: 70px;
+    left: 40px;
     z-index: 1;
   }
   #radarBtn {
     z-index: 1;
+    display: block;
     color: black;
     background-color: white;
     margin-bottom: 10px;
   }
   #tempBtn {
     z-index: 1;
+    display: block;
     color: black;
     background-color: white;
     margin-bottom: 10px;
   }
   #windBtn {
     z-index: 1;
+    display: block;
     color: black;
     background-color: white;
+  }
+  
+  @media screen and (min-width: 450px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 88vw;
+      height: 92vh;
+    }
+  }
+  @media screen and (min-width: 575px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 90vw;
+      height: 92vh;
+    }
+  }
+  @media screen and (min-width: 700px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 92vw;
+      height: 92vh;
+    }
+  }
+  @media screen and (min-width: 875px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 94vw;
+      height: 92vh;
+    }
+  }
+  @media screen and (min-width: 1050px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 95vw;
+      height: 92vh;
+    }
+  }
+  @media screen and (min-width: 1300px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 96vw;
+      height: 92vh;
+    }
+  }
+  @media screen and (min-width: 1600px) {
+    .map-wrap {
+      position: fixed;
+      top: 70px;
+      left: 30px;
+      right: 4vw;
+      width: 97vw;
+      height: 92vh;
+    }
   }
 </style>
