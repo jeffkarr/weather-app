@@ -1,6 +1,11 @@
 <template>
   <header>
-    <Button as="router-link" to="/" severity="secondary"><i class="pi pi-arrow-left"></i>Return to App</Button>
+    <div id="return-wrap">
+      <Button  as="router-link" to="/" severity="secondary"><i class="pi pi-arrow-left"></i>Return to App</Button>
+    </div>
+    <div id="map-title">
+        <h3><i>{{ mapType}} for {{ mapCityState }}</i></h3>
+    </div>
   </header>
   <div class="map-wrap">
     <div class="map" ref="mapContainer">
@@ -14,19 +19,23 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { onBeforeUpdate, ref, watch } from 'vue';
+  import { storeToRefs } from 'pinia';
   import Button from 'primevue/button';
-  import { Map, MapStyle, config } from '@maptiler/sdk';
+  import { Map, MapStyle, Marker, config } from '@maptiler/sdk';
   import { TemperatureLayer, RadarLayer, WindLayer, ColorRamp } from '@maptiler/weather';
   import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
   import '@maptiler/sdk/dist/maptiler-sdk.css';
+  import { useWeatherStore } from '../stores/weatherAPI';
+    
+  const weatherStore = useWeatherStore();
+  const { locationData, lat, lon } = storeToRefs( weatherStore ); 
 
   const mapContainer = shallowRef(null);
   const map = shallowRef(null);
 
   config.apiKey = `${import.meta.env.VITE_MAPTILER_APIKEY}`;
 
-  // center of the united states
   const initialState = { lng: -94.9053581, lat: 39.0919879, zoom: 4 };
 
   let weatherLayers = ref({});
@@ -50,6 +59,16 @@
   let activeLayer = ref('');
   let activeWeatherLayer = ref(null);
   let weatherLayer = ref(null);
+  let lngLatArr = ref([]);
+  let mapCityState = ref('');
+  let mapType = ref('');
+
+  if (lon.value && lat.value) {
+    initialState.lng = lon.value;
+    initialState.lat = lat.value;
+    lngLatArr.value[0] = lon.value;
+    lngLatArr.value[1] = lat.value;
+  };
 
   const createWeatherLayer = (type) => {
     weatherLayer = null;
@@ -70,11 +89,13 @@
         weatherLayer = new WindLayer({ id: 'wind' });
         break;
     };
+    mapType.value = type;
     weatherLayers.value[type].layer = weatherLayer;
     return weatherLayer.value;
   };
 
   const changeWeatherLayer = (type) => {
+    mapType.value = type;
     if (type !== activeLayer.value) {
       if (map.value.getLayer(activeLayer.value)) {
         activeWeatherLayer.value = weatherLayers.value[activeLayer.value]?.layer;
@@ -97,9 +118,33 @@
     };
   };
 
+  const addMarker = () => {
+    if (lon.value && lat.value && lngLatArr.length === 0) {
+      lngLatArr.value.push(lon.value);
+      lngLatArr.value.push(lat.value);
+    } else {
+      lngLatArr.value.splice(0, 1, initialState.lng);
+      lngLatArr.value.splice(1, 1 ,initialState.lat);
+    };
+    
+    if (locationData.value && locationData.value.city ) {
+      mapCityState.value = locationData.value.city; 
+    };
+
+    new Marker({color: "#FF0000"})
+      .setLngLat(lngLatArr.value)
+      .addTo(map.value);
+
+  }; 
+
   const initWeatherMap = (type) => {
     weatherLayer.value = changeWeatherLayer(type);
+    addMarker();
   };
+
+  onBeforeUpdate( () => {
+    mapCityState.value = locationData.value.city;
+  })
 
   onMounted(() => {
 
@@ -130,7 +175,7 @@
 <style scoped>
   .map-wrap {
     position: fixed;
-    top: 70px;
+    top: 110px;
     left: 25px;
     right: 4vw;
     width: 86vw;
@@ -141,10 +186,28 @@
     width: 100%;
     height: 100%;
   }
+  #return-wrap {
+    grid-column: 1/5;
+    z-index: 1;
+  }
+  #map-title {
+    grid-column: 1/5;
+    grid-row: 2/3;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    color: white;
+  }
   header {
-    position: fixed;
-    top: 16px;
-    left: 25px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 10px, auto;
+    max-width: 2000px;
+    max-height: 1400px;
+    margin: 0 auto;
+    margin-left: 10px;
+    margin-right: 10px;
   }  
   .p-button {
     color:white;
@@ -155,7 +218,7 @@
     position: fixed;
     column-width: 87px;
     column-count: 1;
-    top: 210px;
+    top: 240px;
     left: 40px;
     z-index: 1;
   }
@@ -180,17 +243,17 @@
     background-color: white;
   }
   
-  @media screen and (min-width: 450px) {
+  @media screen and (min-width: 475px) {
     .map-wrap {
       position: fixed;
-      top: 70px;
+      top: 110px;
       left: 30px;
       right: 4vw;
       width: 88vw;
       height: 92vh;
     }
   }
-  @media screen and (min-width: 575px) {
+  @media screen and (min-width: 550px) {
     .map-wrap {
       position: fixed;
       top: 70px;
@@ -199,6 +262,29 @@
       width: 90vw;
       height: 92vh;
     }
+    #return-wrap {
+      grid-column: 1/3;
+      z-index: 1;
+    }
+    #map-title {
+      grid-column: 3/5;
+      grid-row: 1/2;
+      z-index: 1;
+      display: flex;
+      justify-content: end;
+      padding: 5px;
+      color: white;
+    }
+    header {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 10px, auto;
+      max-width: 2000px;
+      max-height: 1400px;
+      margin: 0 auto;
+      margin-left: 10px;
+      margin-right: 10px;
+    }  
   }
   @media screen and (min-width: 700px) {
     .map-wrap {
