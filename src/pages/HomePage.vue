@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <header>
-      <LocationBar @locationCleared="(isCleared) => (hideVectorPortal = isCleared)" />
+      <LocationBar @locationCleared="(isCleared) => (citySelected = !isCleared)" />
     </header>
     <p id="simplemap">
       <a style="color:white;text-decoration:none;" href="https://simplemaps.com/data/us-cities" target="_blank">"United
@@ -10,13 +10,13 @@
     <aside>
       <CurrentWeather />
     </aside>
-    <p v-if="!hideVectorPortal" id="vectorportal">
+    <p v-if="citySelected" id="vectorportal">
       <a style="color:white;text-decoration:none;" href=" https://www.vectorportal.com" target="_blank">Weather Image by
         Vectorportal.com</a>, <a style="color:white;text-decoration:none;"
         href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
     </p>
     <main>
-      <div id="map-container"> 
+      <div v-if="citySelected" id="map-container"> 
         <router-link to="/map">
           <img id="map-link" src="../assets/images/map/maptiler_screenshot.png" />
           <div id="map-overlay">
@@ -32,13 +32,13 @@
 </template>
 
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue';
-import LocationBar from '../components/LocationBar.vue'
-import CurrentWeather from '../components/CurrentWeather.vue';
-import Forecast from '../components/Forecast.vue';
+  import { ref } from 'vue';
+  import LocationBar from '../components/LocationBar.vue'
+  import CurrentWeather from '../components/CurrentWeather.vue';
+  import Forecast from '../components/Forecast.vue';
 
-const hideVectorPortal = ref(false);
+  const citySelected = ref(false);
+
 </script>
 
 <style scoped>
