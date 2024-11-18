@@ -1,5 +1,6 @@
 <template>
   <div id="content">
+    <Banner />
     <header>
       <LocationBar @locationCleared="(isCleared) => (citySelected = !isCleared)" />
     </header>
@@ -36,164 +37,160 @@
   import LocationBar from '../components/LocationBar.vue'
   import CurrentWeather from '../components/CurrentWeather.vue';
   import Forecast from '../components/Forecast.vue';
+  import Banner from '../components/Banner.vue';
 
   const citySelected = ref(false);
 
 </script>
 
 <style scoped>
-#content {
-  display: grid;
-  max-width: 2000px;
-  max-height: 1400px;
-  margin: 0 auto;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(20px, auto);
-  grid-gap: 10px;
-  grid-template-areas:
-    'header header header header'
-    'simplemap simplemap simplemap simplemap'
-    'aside aside aside aside'
-    'aside aside aside aside'
-    'vectorportal vectorportal vectorportal vectorportal'
-    'main main main main'
-    'main main main main'
-    'section section section section'
-    'section section section section'
-    'section section section section';
-}
-
-header {
-  grid-area: header;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2vh 0 0 0;
-  /* background: #fff;
-      padding: 30px;   */
-}
-
-#simplemap {
-  grid-area: simplemap;
-  display: flex;
-  justify-content: center;
-  font-size: .7em;
-}
-
-aside {
-  grid-area: aside;
-  margin: 0;
-  /* background: #fff;
-      padding: 30px;   */
-}
-
-#vectorportal {
-  grid-area: vectorportal;
-  display: flex;
-  justify-content: center;
-  font-size: .7em;
-  line-height: 10px;
-  color: #fff;
-}
-
-#vectorportal-attr a {
-  color: #fff;
-  height: auto;
-}
-
-main {
-  grid-area: main;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background: #fff;
-  padding: 30px; */
-
-}
-#map-container {
-  position:relative;
-  width: 100%;
-  height: 100%;
-}
-#map-link {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 3px solid white;
-  border-radius: 6px;
-}
-section {
-  grid-area: section;
-  margin: 0;
-}
-
-#map-overlay {
-  position: absolute;
-  top: 40%;
-  left: 5%;
-  background: rgb(122, 189, 255); /* Fallback color */
-  background: rgba(122, 189, 255, 0.75); /* Black background with 0.5 opacity */
-  color: #f1f1f1;
-  font-size: 4vw;
-  width: 90%;
-  padding: 20px;
-  text-align: center;
-  border-radius: 6px;
-}
-
-@media screen and (min-width: 600px) {
-  #map-overlay {
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    background: rgb(122, 189, 255); /* Fallback color */
-    background: rgba(122, 189, 255, 0.75); 
-    color: #f1f1f1;
-    font-size: 4vw;
-    width: 90%;
-    padding: 20px;
-  }
-
-}
-
-@media screen and (min-width: 1024px) {
   #content {
     display: grid;
-    max-width: 1800px;
+    max-width: 2000px;
+    max-height: 1400px;
     margin: 0 auto;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(20px, auto);
     grid-gap: 10px;
     grid-template-areas:
-      '. header header header'
-      '. simplemap simplemap .'
-      'aside main main main'
-      'aside main main main'
-      'vectorportal main main main'
-      'section main main main'
-      'section main main main'
-      'section main main main';
-    padding: 10px;
+      'banner banner banner banner'    
+      'header header header header'
+      'simplemap simplemap simplemap simplemap'
+      'aside aside aside aside'
+      'aside aside aside aside'
+      'vectorportal vectorportal vectorportal vectorportal'
+      'main main main main'
+      'main main main main'
+      'section section section section'
+      'section section section section'
+      'section section section section';
   }
-
-  main {
-    grid-area: main;
+  banner {
+    grid-area: banner;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 1vw;
-    /* background: #fff;
-    padding: 20px; */
+    padding: 2vh 0 0 0;
   }
   header {
     grid-area: header;
     display: flex;
     align-items: center;
-    justify-content: start;
-    padding: 2vh 0 0 1vw;
-    /* background: #fff;
-        padding: 30px;   */
+    justify-content: center;
+    padding: 2vh 0 0 0;
+  }
+  #simplemap {
+    grid-area: simplemap;
+    display: flex;
+    justify-content: center;
+    font-size: .7em;
+  }
+  aside {
+    grid-area: aside;
+    margin: 0;
+  }
+  #vectorportal {
+    grid-area: vectorportal;
+    display: flex;
+    justify-content: center;
+    font-size: .7em;
+    line-height: 10px;
+    color: #fff;
+  }
+  #vectorportal-attr a {
+    color: #fff;
+    height: auto;
+  }
+  main {
+    grid-area: main;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #map-container {
+    position:relative;
+    width: 100%;
+    height: 100%;
+  }
+  #map-link {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 3px solid white;
+    border-radius: 6px;
+  }
+  section {
+    grid-area: section;
+    margin: 0;
+  }
+  #map-overlay {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    background: rgb(122, 189, 255); /* Fallback color */
+    background: rgba(122, 189, 255, 0.75); /* Black background with 0.5 opacity */
+    color: #f1f1f1;
+    font-size: 4vw;
+    width: 90%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 6px;
   }
 
-}
+  @media screen and (min-width: 600px) {
+    #map-overlay {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      background: rgb(122, 189, 255); /* Fallback color */
+      background: rgba(122, 189, 255, 0.75); 
+      color: #f1f1f1;
+      font-size: 4vw;
+      width: 90%;
+      padding: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    #content {
+      display: grid;
+      max-width: 1800px;
+      margin: 0 auto;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(20px, auto);
+      grid-gap: 10px;
+      grid-template-areas:
+        '. banner banner banner'    
+        '. header header header'
+        '. simplemap simplemap .'
+        'aside main main main'
+        'aside main main main'
+        'vectorportal main main main'
+        'section main main main'
+        'section main main main'
+        'section main main main';
+      padding: 10px;
+    }
+    main {
+      grid-area: main;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 1vw;
+    }
+    banner {
+      grid-area: banner;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2vh 0 0 0;
+    }
+    header {
+      grid-area: header;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding: 2vh 0 0 1vw;
+    }
+  }
 </style>
