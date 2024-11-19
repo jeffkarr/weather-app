@@ -1,5 +1,6 @@
 <template>
   <div id="content">
+    <resize-observer @notify="handleResize" :showTrigger="true" />
     <Banner />
     <header>
       <LocationBar @locationCleared="(isCleared) => (citySelected = !isCleared)" />
@@ -18,12 +19,17 @@
     </p>
     <main>
       <div v-if="citySelected" id="map-container"> 
-        <router-link to="/map">
-          <img id="map-link" src="../assets/images/map/maptiler_screenshot.png" />
-          <div id="map-overlay">
-            <h4>Click to Open Map</h4>
-          </div>
-        </router-link>
+        <div v-if="showLink">
+          <router-link to="/map">
+            <img id="map-link" src="../assets/images/map/maptiler_screenshot.png" />
+            <div id="map-overlay">
+              <h4>Click to Open Map</h4>
+            </div>
+          </router-link>
+        </div>
+        <div v-else>
+          <MapComponent />
+        </div>
       </div>
     </main>
     <section>
@@ -38,8 +44,27 @@
   import CurrentWeather from '../components/CurrentWeather.vue';
   import Forecast from '../components/Forecast.vue';
   import Banner from '../components/Banner.vue';
+  import MapComponent from '../components/MapComponent.vue';
 
   const citySelected = ref(false);
+
+  const showLink = ref(true);
+
+  let initScreenSize = window.innerWidth;
+
+  if (initScreenSize > 1023) {
+    showLink.value = false;
+  } else {
+    showLink.value = true;
+  }
+
+  const handleResize = ({ width, height }) => {
+    if (width > 1023) {
+      showLink.value = false;
+    } else {
+      showLink.value = true;
+    }
+  };
 
 </script>
 
