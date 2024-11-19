@@ -36,13 +36,14 @@
   import { useWeatherStore } from '../stores/weatherAPI';
   import { useForecastStore } from '../stores/forecastAPI';
   
-  const selectedItem = ref({"city": "Denver,CO","location": "39.762,-104.8758"});
+  const selectedItem = ref(null);
   const defaultItem = ref({"city": "Denver,CO","location": "39.762,-104.8758"});
+  let initialLoad = ref(true);
   let locationCityState = ref("");
   let locationCoordinates = ref([]);
-  let showSaveBtn = ref();
   let savedCity = ref({});
   let savedCityStr = ref("");
+  let showSaveBtn = ref();
   let showRemoveBtn = ref(false);
   const citiesStore = useCitiesStore();
   citiesStore.getCities();
@@ -96,31 +97,32 @@
   }
 
   const storeLocWeather = () =>{ 
-    // when locationBar has been manually cleared
-    if (!selectedItem.value) {
-      initStores();
-    } else {
-      savedCityStr.value = localStorage.getItem('weatherAppLoc');
-      savedCity.value = JSON.parse(savedCityStr.value);
+    savedCityStr.value = localStorage.getItem('weatherAppLoc');
+    savedCity.value = JSON.parse(savedCityStr.value);
+
+    // on initialLoad of component, check if user has saved a city - if so, assign it to selectedItem 
+    if (!selectedItem.value && initialLoad.value) {
       if (savedCity.value) {
-        if (selectedItem.value.city === defaultItem.value.city) {
-          selectedItem.value = savedCity.value;
-          showRemoveBtn.value = true;
-          showSaveBtn.value = false;
-        } 
-        else if (selectedItem.value.city !== defaultItem.value.city) {
-          showRemoveBtn.value = false;
-          showSaveBtn.value = true;
-        };
+        selectedItem.value = savedCity.value;
+        showRemoveBtn.value = true;
+        showSaveBtn.value = false;
       } else {
-        if (selectedItem.value.city !== 'Denver,CO') {
-          showSaveBtn.value = true;
-        };
-      }; 
-      weatherStore.locationData = selectedItem.value;
-      parseLocData(selectedItem.value);
-      emit('locationCleared', false); 
+        selectedItem.value = defaultItem.value;
+        showRemoveBtn.value = false;
+        showSaveBtn.value = true;
+      }
+      initialLoad.value = false;
+      // user has manually cleared locationBar selection
+    } else if (!selectedItem.value && !initialLoad.value) {  
+      initStores();
+      // user has selected a different city
+    } else {
+      showRemoveBtn.value = false;
+      showSaveBtn.value = true;
     };
+    weatherStore.locationData = selectedItem.value;
+    parseLocData(selectedItem.value);
+    emit('locationCleared', false); 
   };
 
   storeLocWeather();

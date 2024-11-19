@@ -23,13 +23,13 @@ import { useWeatherStore } from '../stores/weatherAPI';
 const weatherStore = useWeatherStore();
 const { locationData, lat, lon } = storeToRefs(weatherStore);
 
-const mapContainer = shallowRef(null);
-const map = shallowRef(null);
-
 config.apiKey = `${import.meta.env.VITE_MAPTILER_APIKEY}`;
 
 const initialState = { lng: -94.9053581, lat: 39.0919879, zoom: 4 };
 
+const mapContainer = shallowRef(null);
+const map = shallowRef(null);
+const marker = ref(null);
 let weatherLayers = ref({});
 weatherLayers.value = {
   "radar": {
@@ -61,6 +61,20 @@ if (lon.value && lat.value) {
   lngLatArr.value[0] = lon.value;
   lngLatArr.value[1] = lat.value;
 };
+
+watch( () => weatherStore, (newData) => { 
+  if (lon.value && lat.value) {
+    initialState.lng = lon.value;
+    initialState.lat = lat.value;
+    lngLatArr.value[0] = lon.value;
+    lngLatArr.value[1] = lat.value;
+  };
+  removeMarker();
+  setTimeout( () => {
+      addMarker();
+  }, 500);
+
+}, {deep:true});
 
 const createWeatherLayer = (type) => {
   weatherLayer = null;
@@ -111,6 +125,10 @@ const changeWeatherLayer = (type) => {
 };
 
 const addMarker = () => {
+  if (marker.value) {
+    marker.value.remove();
+    marker.value = null;
+  };
   if (lon.value && lat.value && lngLatArr.length === 0) {
     lngLatArr.value.push(lon.value);
     lngLatArr.value.push(lat.value);
@@ -118,15 +136,20 @@ const addMarker = () => {
     lngLatArr.value.splice(0, 1, initialState.lng);
     lngLatArr.value.splice(1, 1, initialState.lat);
   };
-
   if (locationData.value && locationData.value.city) {
     mapCityState.value = locationData.value.city;
   };
+  marker.value = new Marker({ color: "#FF0000" })
+  .setLngLat(lngLatArr.value)
+  .addTo(map.value);
+  map.value.setCenter(lngLatArr.value);
+};
 
-  new Marker({ color: "#FF0000" })
-    .setLngLat(lngLatArr.value)
-    .addTo(map.value);
-
+const removeMarker = () => {
+  if (marker.value) {
+    marker.value.remove();
+    marker.value = null;
+  }
 };
 
 const initWeatherMap = (type) => {
