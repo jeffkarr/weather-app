@@ -27,7 +27,7 @@
             </div>
           </router-link>
         </div>
-        <div>
+        <div v-if="citySelected && !showLink">
           <MapComponent />
         </div>
       </div>
