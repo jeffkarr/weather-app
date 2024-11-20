@@ -71,8 +71,8 @@
 <style scoped>
   #content {
     display: grid;
-    max-width: 2000px;
-    max-height: 1400px;
+    max-width: 1600px;
+    max-height: 1200px;
     margin: 0 auto;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(20px, auto);
