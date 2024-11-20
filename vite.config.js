@@ -12,6 +12,7 @@ export default defineConfig({
   define: {
     'process.env.VITE_WEATHER_API_URL':JSON.stringify(process.env.VITE_WEATHER_API_URL),
     'process.env.VITE_WEATHER_API_APPID':JSON.stringify(process.env.VITE_WEATHER_API_APPID),
+    'process.env.VITE_MAPTILER_APIKEY':JSON.stringify(process.env.VITE_MAPTILER_APIKEY),
   },
   resolve: {
     alias: {
