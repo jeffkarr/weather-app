@@ -279,7 +279,7 @@
     flex-direction: column;
     justify-content: center;
     font-size: clamp(2.25vw, 3vw, 3.5vw);
-    padding: .2em;  
+    padding: .2em 0 .2em .2em;  
     border-radius: 0px 6px 6px 0px;
   }
   img {
@@ -405,9 +405,10 @@
       background: #9cb2c0;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       align-self: start;
       justify-content: center;
-      font-size: 1.75vw;
+      font-size: 1.7vw;
       border-right: 1px solid blueviolet
     }
     #day2 {
@@ -415,9 +416,10 @@
       background: tan;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       align-self: start;
       justify-content: center;
-      font-size: 1.75vw;
+      font-size: 1.7vw;
       border-right: 1px solid blueviolet
     }
     #day3 {
@@ -425,9 +427,10 @@
       background: #69e0ad;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       align-self: start;
       justify-content: center;
-      font-size: 1.75vw;
+      font-size: 1.7vw;
       border-right: 1px solid blueviolet
     }
     #day4 {
@@ -435,9 +438,10 @@
       background: #BEBECF;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       align-self: start;
       justify-content: center;
-      font-size: 1.75vw;
+      font-size: 1.7vw;
       border-right: 1px solid blueviolet
     }
     #day5 {
@@ -445,9 +449,14 @@
       background: #22cfcf;;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       align-self: start;
       justify-content: center;
-      font-size: 1.75vw;
+      font-size: 1.7vw;
+    }
+    h4 {
+      text-align: center;
+      padding-right: 15px;
     }
     .hi-temp {
       position: sticky;
