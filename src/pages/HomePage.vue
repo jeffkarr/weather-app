@@ -3,7 +3,7 @@
     <resize-observer @notify="handleResize" :showTrigger="true" />
     <Banner />
     <header>
-      <LocationBar @locationCleared="(isCleared) => (citySelected = !isCleared)" />
+      <LocationBar @locationCleared="handleClear" />
     </header>
     <p id="simplemap">
       <a style="color:white;text-decoration:none;" href="https://simplemaps.com/data/us-cities" target="_blank">"United
@@ -27,7 +27,7 @@
             </div>
           </router-link>
         </div>
-        <div v-else>
+        <div>
           <MapComponent />
         </div>
       </div>
@@ -56,6 +56,10 @@
     showLink.value = false;
   } else {
     showLink.value = true;
+  }
+
+  const handleClear = (isCleared) => {
+    citySelected.value = !isCleared;
   }
 
   const handleResize = ({ width, height }) => {

@@ -49,6 +49,7 @@
   citiesStore.getCities();
   const weatherStore = useWeatherStore();
   const forecastStore = useForecastStore();
+
   const emit = defineEmits(['locationCleared']);
   
   const parseLocData = (locObj) => {
@@ -112,10 +113,11 @@
         showSaveBtn.value = true;
       }
       initialLoad.value = false;
-      // user has manually cleared locationBar selection
+    // user has manually cleared locationBar selection
     } else if (!selectedItem.value && !initialLoad.value) {  
       initStores();
-      // user has selected a different city
+      return;
+    // user has selected a different city
     } else {
       showRemoveBtn.value = false;
       showSaveBtn.value = true;
