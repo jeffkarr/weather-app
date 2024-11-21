@@ -39,7 +39,7 @@
   <h2>Weather Today</h2>
 </div>
 
-[![Welcome to Weather Today][product-screenshot]](#)
+[![Welcome to Weather Today][product-screenshot]](https://vermillion-kringle-750e5d.netlify.app/)
 
 Weather Today gives users concise weather information at a glance for a selected city. 
 
