@@ -36,6 +36,14 @@
     <div id="pressure-val">
       <p>{{ currPressure }} in</p>
     </div>
+    <div id="sunrise-container">
+      <img id="sunrise-img" src="../assets/images/weather/sunrise.png" v-tooltip.bottom="'sunrise'" />
+    </div>
+    <div id="sunrise-text">{{ sunrise }}</div>    
+    <div id="sunset-container">
+      <img id="sunset-img" src="../assets/images/weather/sunset.png" v-tooltip.bottom="'sunset'" />
+    </div>
+    <div id="sunset-text">{{ sunset }}</div>  
   </div>
 
 </template>
@@ -50,7 +58,8 @@
 
   const weatherStore = useWeatherStore();
 
-  const { lat, lon, currTemp, currWeatherShortDescr, currWeatherIcon, currWindSpeed, currHumidity, currPressure, currWeatherData } = storeToRefs( weatherStore ); 
+  const { lat, lon, tz, sunrise, sunset, currTemp, currWeatherShortDescr, currWeatherIcon, currWindSpeed, 
+    currHumidity, currPressure, currWeatherData } = storeToRefs( weatherStore ); 
 
   const getWeatherIcon = () => {
     if (currWeatherIcon.value) {
@@ -99,6 +108,40 @@
   #weather-img {
     width: 100%;
     height: auto;
+  }
+  #sunrise-container {
+    grid-column: 2/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #sunrise-img {
+    width: 100%;
+    height: auto;
+  }
+  #sunrise-text {
+    grid-column: 4/7;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: clamp(3vw, 3.5vw, 4vw);
+  }
+  #sunset-container {
+    grid-column: 8/10;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
+  #sunset-img {
+    width: 100%;
+    height: auto;
+  }
+  #sunset-text {
+    grid-column: 10/13;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: clamp(3vw, 3.5vw, 4vw);
   }
   #wind-hdr {
     grid-column: 1/5;
@@ -309,6 +352,40 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    #sunrise-container {
+      grid-column: 1/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #sunrise-img {
+      width: 100%;
+      height: auto;
+    }
+    #sunrise-text {
+      grid-column: 3/7;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      font-size: 1.5vw;
+    }
+    #sunset-container {
+      grid-column: 7/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #sunset-img {
+      width: 100%;
+      height: auto;
+    }
+    #sunset-text {
+      grid-column: 9/12;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      font-size: 1.5vw;
     }
   }
 

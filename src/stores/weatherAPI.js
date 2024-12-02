@@ -1,10 +1,17 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone); 
 
 export const useWeatherStore = defineStore('weatherData', () => {
   let locationData = ref({});
   let lat = ref("");
   let lon = ref("");
+  let tz = ref("");
   let currWeatherData = ref({});
   let currWeatherShortDescr = ref("");  
   let currWeatherIcon = ref("");
@@ -14,6 +21,8 @@ export const useWeatherStore = defineStore('weatherData', () => {
   let currWindGust = ref(0);
   let currWindDirection = ref(0); 
   let currPressure = ref(0); 
+  let sunrise = ref("");
+  let sunset = ref("");
 
   const calcPressure = (apiPressure) => {
     let tempPressure = (apiPressure / 33.8639).toFixed(2);
@@ -38,10 +47,12 @@ export const useWeatherStore = defineStore('weatherData', () => {
       currWeatherShortDescr.value = result.weather[0].main;
       currWeatherIcon.value = result.weather[0].icon;    
       currPressure.value = calcPressure(result.main.pressure);
+      sunrise.value = dayjs.unix(result.sys.sunrise).tz(tz.value).format('h:mm a');
+      sunset.value = dayjs.unix(result.sys.sunset).tz(tz.value).format('h:mm a');
     })
     .catch( (error) => console.error(error) ); 
   };
 
-  return { locationData, lat, lon, currWeatherData, currTemp, currWeatherShortDescr, currWeatherIcon, 
+  return { locationData, lat, lon, tz, sunrise, sunset, currWeatherData, currTemp, currWeatherShortDescr, currWeatherIcon, 
     currWindSpeed, currHumidity, currPressure, getCurrentWeather };
 });

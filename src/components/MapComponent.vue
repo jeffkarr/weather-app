@@ -53,6 +53,7 @@ let activeWeatherLayer = ref(null);
 let weatherLayer = ref(null);
 let lngLatArr = ref([]);
 let mapCityState = ref('');
+let mapTz = ref('');
 let mapType = ref('');
 
 if (lon.value && lat.value) {
@@ -138,6 +139,9 @@ const addMarker = () => {
   };
   if (locationData.value && locationData.value.city) {
     mapCityState.value = locationData.value.city;
+  };
+  if (locationData.value && locationData.value.tz) {
+    mapTz.value = locationData.value.tz;
   };
   marker.value = new Marker({ color: "#FF0000" })
   .setLngLat(lngLatArr.value)
