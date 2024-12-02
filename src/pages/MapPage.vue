@@ -29,7 +29,7 @@
   import { useWeatherStore } from '../stores/weatherAPI';
     
   const weatherStore = useWeatherStore();
-  const { locationData, lat, lon } = storeToRefs( weatherStore ); 
+  const { locationData, lat, lon, tz } = storeToRefs( weatherStore ); 
 
   const mapContainer = shallowRef(null);
   const map = shallowRef(null);
@@ -61,6 +61,7 @@
   let weatherLayer = ref(null);
   let lngLatArr = ref([]);
   let mapCityState = ref('');
+  let mapTz = ref('');
   let mapType = ref('');
 
   if (lon.value && lat.value) {
@@ -130,6 +131,9 @@
     if (locationData.value && locationData.value.city ) {
       mapCityState.value = locationData.value.city; 
     };
+    if (locationData.value && locationData.value.tz) {
+      mapTz.value = locationData.value.tz;
+    };
 
     new Marker({color: "#FF0000"})
       .setLngLat(lngLatArr.value)
@@ -144,6 +148,7 @@
 
   onBeforeUpdate( () => {
     mapCityState.value = locationData.value.city;
+    mapTz.value = locationData.value.tz;
   })
 
   onMounted(() => {

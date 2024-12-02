@@ -37,10 +37,11 @@
   import { useForecastStore } from '../stores/forecastAPI';
   
   const selectedItem = ref(null);
-  const defaultItem = ref({"city": "Denver,CO","location": "39.762,-104.8758"});
+  const defaultItem = ref({"city": "Denver,CO","location": "39.762,-104.8758", tz: "America/Denver"});
   let initialLoad = ref(true);
   let locationCityState = ref("");
   let locationCoordinates = ref([]);
+  let locationTimezone = ref("");
   let savedCity = ref({});
   let savedCityStr = ref("");
   let showSaveBtn = ref();
@@ -56,6 +57,8 @@
     if (locObj) {
       locationCityState = locObj.city;
       locationCoordinates = locObj.location.split(',');
+      locationTimezone = locObj.tz;
+      weatherStore.tz = locationTimezone;
       weatherStore.lat = locationCoordinates[0];
       forecastStore.lat = locationCoordinates[0];
       weatherStore.lon = locationCoordinates[1]; 
@@ -81,6 +84,7 @@
     weatherStore.locationData = {};
     weatherStore.lat = "";
     weatherStore.lon = ""; 
+    weatherStore.tz = "";
     weatherStore.currWeatherData = {};
     weatherStore.currWeatherShortDescr = "";  
     weatherStore.currWeatherIcon = "";
