@@ -14,6 +14,15 @@
         <Button id="tempBtn" size="small" @click="changeWeatherLayer('temperature')"><small>Temperature</small></Button>
         <Button id="windBtn" size="small" @click="changeWeatherLayer('wind')"><small>Wind</small></Button>
       </div>
+      <div class="player-area"> 
+        <div class="player">
+          <Button v-if="showPlayBtn" id="playBtn" icon="pi pi-play-circle" severity="contrast" variant="text" size="large" @click="playAnimation"></Button>
+          <Button v-if="showPauseBtn" id="pauseBtn" icon="pi pi-pause-circle" severity="contrast" variant="text" size="large" @click="pauseAnimation"></Button>
+          <div id="dateTimeDisplay">
+            <h4>{{ sliderDateTime }}</h4>
+          </div>
+        </div>
+      </div> 
     </div>
   </div>
 </template>
@@ -27,12 +36,26 @@
   import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
   import '@maptiler/sdk/dist/maptiler-sdk.css';
   import { useWeatherStore } from '../stores/weatherAPI';
-    
+  import dayjs from 'dayjs';
+  import utc from 'dayjs/plugin/utc';
+  import timezone from 'dayjs/plugin/timezone';
+  
   const weatherStore = useWeatherStore();
   const { locationData, lat, lon, tz } = storeToRefs( weatherStore ); 
 
   const mapContainer = shallowRef(null);
   const map = shallowRef(null);
+  const layer = ref(null);
+  let showPlayBtn = ref(true);
+  let showPauseBtn = ref(false);
+  const animationStartDate = ref(null);
+  const animationEndDate = ref(null);
+  const animationCurrentDate = ref(null);
+  let playerInterval = ref(null);
+  let sliderDateTime = ref("See Forecast");
+
+  dayjs.extend(utc);
+  dayjs.extend(timezone);  
 
   config.apiKey = `${import.meta.env.VITE_MAPTILER_APIKEY}`;
 
@@ -92,6 +115,7 @@
     };
     mapType.value = type;
     weatherLayers.value[type].layer = weatherLayer;
+    layer.value = weatherLayer
     return weatherLayer.value;
   };
 
@@ -144,6 +168,37 @@
   const initWeatherMap = (type) => {
     weatherLayer.value = changeWeatherLayer(type);
     addMarker();
+  };
+
+  const playAnimation = () => {
+    showPlayBtn.value = false;
+    showPauseBtn.value = true;
+    animationStartDate.value = layer.value.getAnimationStartDate();
+    animationEndDate.value = layer.value.getAnimationEndDate();
+    animationCurrentDate.value = layer.value.getAnimationTimeDate();  
+
+    setTimeout( () => { 
+      layer.value.animateByFactor(3600);
+      // each second is an hour of animationTimeDate
+      playerInterval.value = setInterval( () => {
+        let tempDateTime = dayjs.utc(layer.value.getAnimationTimeDate() );
+          let formattedTempDateTime = dayjs.utc(tempDateTime).tz(mapTz.value).format('MMM D h:mm a')
+        sliderDateTime.value = formattedTempDateTime;
+      }, 1000);
+
+    }, 500);
+  };
+
+  const pauseAnimation = () => {
+    showPauseBtn.value = false;
+    showPlayBtn.value = true;
+    animationStartDate.value = null;
+    animationEndDate.value = null;
+    animationCurrentDate.value = null;
+    setTimeout( () => { 
+      layer.value.animateByFactor(0);
+      clearInterval(playerInterval.value);
+    }, 500);
   };
 
   onBeforeUpdate( () => {
@@ -247,8 +302,40 @@
     color: black;
     background-color: white;
   }
-  
-  @media screen and (min-width: 475px) {
+  .player-area {
+    background-color: white;
+    position: relative;
+    width: 200px;
+    left: 20%;
+    top: 10px;
+    z-index: 2;
+    padding: 0px 5px;;
+    border-radius: 10px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+  }
+  .player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  } 
+  #playBtn #pauseBtn #timeSlider{
+    z-index: 3;
+  }
+  #dateTimeDisplay {
+    z-index: 3;
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  @media screen and (min-width: 450px) {
     .map-wrap {
       position: fixed;
       top: 110px;
@@ -256,6 +343,21 @@
       right: 4vw;
       width: 88vw;
       height: 92vh;
+    }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 30%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
     }
   }
   @media screen and (min-width: 550px) {
@@ -289,7 +391,22 @@
       margin: 0 auto;
       margin-left: 10px;
       margin-right: 10px;
-    }  
+    }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 35%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    } 
   }
   @media screen and (min-width: 700px) {
     .map-wrap {
@@ -300,6 +417,21 @@
       width: 92vw;
       height: 92vh;
     }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 38%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    } 
   }
   @media screen and (min-width: 875px) {
     .map-wrap {
@@ -310,6 +442,21 @@
       width: 94vw;
       height: 92vh;
     }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 38%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    } 
   }
   @media screen and (min-width: 1050px) {
     .map-wrap {
@@ -320,6 +467,21 @@
       width: 95vw;
       height: 92vh;
     }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 40%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    } 
   }
   @media screen and (min-width: 1300px) {
     .map-wrap {
@@ -330,6 +492,21 @@
       width: 96vw;
       height: 92vh;
     }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 42%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    } 
   }
   @media screen and (min-width: 1600px) {
     .map-wrap {
@@ -340,5 +517,20 @@
       width: 97vw;
       height: 92vh;
     }
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 200px;
+      left: 45%;
+      top: 10px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    } 
   }
 </style>

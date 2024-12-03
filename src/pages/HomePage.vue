@@ -1,6 +1,6 @@
 <template>
+  <resize-observer @notify="handleResize" :showTrigger="true" />
   <div id="content">
-    <resize-observer @notify="handleResize" :showTrigger="true" />
     <Banner />
     <header>
       <LocationBar @locationCleared="handleClear" />
@@ -27,7 +27,7 @@
             </div>
           </router-link>
         </div>
-        <div v-if="citySelected && !showLink">
+        <div v-if="!showLink && citySelected">
           <MapComponent />
         </div>
       </div>
@@ -49,26 +49,27 @@
   const citySelected = ref(false);
 
   const showLink = ref(true);
+  let screenSize = ref(0);
 
-  let initScreenSize = window.innerWidth;
-
-  if (initScreenSize > 1023) {
+  screenSize.value = innerWidth;
+  if (screenSize.value > 1022) {
     showLink.value = false;
   } else {
     showLink.value = true;
   }
 
-  const handleClear = (isCleared) => {
-    citySelected.value = !isCleared;
-  }
-
-  const handleResize = ({ width, height }) => {
-    if (width > 1023) {
+  const handleResize = () => {
+    screenSize.value = innerWidth;
+    if (screenSize.value > 1022) {
       showLink.value = false;
     } else {
       showLink.value = true;
     }
   };
+
+  const handleClear = (isCleared) => {
+    citySelected.value = !isCleared;
+  }
 
 </script>
 
@@ -180,7 +181,7 @@
     }
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1023px) {
     #content {
       display: grid;
       max-width: 1800px;
