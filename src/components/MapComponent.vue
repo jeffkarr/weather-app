@@ -6,6 +6,15 @@
         <Button id="tempBtn" size="small" @click="changeWeatherLayer('temperature')"><small>Temperature</small></Button>
         <Button id="windBtn" size="small" @click="changeWeatherLayer('wind')"><small>Wind</small></Button>
       </div>
+      <div class="player-area"> 
+        <div class="player">
+          <Button v-if="showPlayBtn" id="playBtn" icon="pi pi-play-circle" severity="contrast" variant="text" size="large" @click="playAnimation"></Button>
+          <Button v-if="showPauseBtn" id="pauseBtn" icon="pi pi-pause-circle" severity="contrast" variant="text" size="large" @click="pauseAnimation"></Button>
+          <div id="dateTimeDisplay">
+            <h4>{{ sliderDateTime }}</h4>
+          </div>
+        </div>
+      </div> 
     </div>
   </div>
 </template>
@@ -19,9 +28,23 @@ import { TemperatureLayer, RadarLayer, WindLayer, ColorRamp } from '@maptiler/we
 import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { useWeatherStore } from '../stores/weatherAPI';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 const weatherStore = useWeatherStore();
 const { locationData, lat, lon } = storeToRefs(weatherStore);
+const layer = ref(null);
+let showPlayBtn = ref(true);
+let showPauseBtn = ref(false);
+const animationStartDate = ref(null);
+const animationEndDate = ref(null);
+const animationCurrentDate = ref(null);
+let playerInterval = ref(null);
+let sliderDateTime = ref("See Forecast");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);  
 
 config.apiKey = `${import.meta.env.VITE_MAPTILER_APIKEY}`;
 
@@ -98,6 +121,7 @@ const createWeatherLayer = (type) => {
   };
   mapType.value = type;
   weatherLayers.value[type].layer = weatherLayer;
+  layer.value = weatherLayer
   return weatherLayer.value;
 };
 
@@ -161,6 +185,37 @@ const initWeatherMap = (type) => {
   addMarker();
 };
 
+const playAnimation = () => {
+    showPlayBtn.value = false;
+    showPauseBtn.value = true;
+    animationStartDate.value = layer.value.getAnimationStartDate();
+    animationEndDate.value = layer.value.getAnimationEndDate();
+    animationCurrentDate.value = layer.value.getAnimationTimeDate();  
+
+    setTimeout( () => { 
+      layer.value.animateByFactor(3600);
+      // each second is an hour of animationTimeDate
+      playerInterval.value = setInterval( () => {
+        let tempDateTime = dayjs.utc(layer.value.getAnimationTimeDate() );
+          let formattedTempDateTime = dayjs.utc(tempDateTime).tz(mapTz.value).format('MMM D h:mm a')
+        sliderDateTime.value = formattedTempDateTime;
+      }, 1000);
+
+    }, 500);
+  };
+
+  const pauseAnimation = () => {
+    showPauseBtn.value = false;
+    showPlayBtn.value = true;
+    animationStartDate.value = null;
+    animationEndDate.value = null;
+    animationCurrentDate.value = null;
+    setTimeout( () => { 
+      layer.value.animateByFactor(0);
+      clearInterval(playerInterval.value);
+    }, 500);
+  };
+
 onBeforeUpdate(() => {
   mapCityState.value = locationData.value.city;
 })
@@ -192,48 +247,96 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.map-wrap {
-  grid-column: 3/5;
-}
-.map {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.p-button {
-  color: white;
-  background-color: rgb(122, 189, 255);
-  text-decoration: none;
-}
-.mapBtns {
-  position: relative;
-  column-width: 87px;
-  column-count: 1;
-  top: 120px;
-  left: 10px;
-  z-index: 1;
-}
+  .map-wrap {
+    grid-column: 3/5;
+  }
+  .map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .p-button {
+    color: white;
+    background-color: rgb(122, 189, 255);
+    text-decoration: none;
+  }
+  .mapBtns {
+    position: relative;
+    column-width: 87px;
+    column-count: 1;
+    top: 120px;
+    left: 10px;
+    z-index: 1;
+  }
 
-#radarBtn {
-  z-index: 1;
-  display: block;
-  color: black;
-  background-color: white;
-  margin-bottom: 10px;
-}
+  #radarBtn {
+    z-index: 1;
+    display: block;
+    color: black;
+    background-color: white;
+    margin-bottom: 10px;
+  }
 
-#tempBtn {
-  z-index: 1;
-  display: block;
-  color: black;
-  background-color: white;
-  margin-bottom: 10px;
-}
+  #tempBtn {
+    z-index: 1;
+    display: block;
+    color: black;
+    background-color: white;
+    margin-bottom: 10px;
+  }
 
-#windBtn {
-  z-index: 1;
-  display: block;
-  color: black;
-  background-color: white;
-}
+  #windBtn {
+    z-index: 1;
+    display: block;
+    color: black;
+    background-color: white;
+  }
+  .player-area {
+    background-color: white;
+    position: relative;
+    width: 250px;
+    left: 35%;
+    top: -100px;
+    z-index: 2;
+    padding: 0px 5px;;
+    border-radius: 10px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    width: 250px; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+  }
+  .player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  } 
+  #playBtn #pauseBtn #timeSlider{
+    z-index: 3;
+  }
+  #dateTimeDisplay {
+    z-index: 3;
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  @media screen and (min-width: 1400px) {
+    .player-area {
+      background-color: white;
+      position: relative;
+      width: 250px;
+      left: 40%;
+      top: -100px;
+      z-index: 2;
+      padding: 0px 5px;;
+      border-radius: 10px;
+      border: 2px solid black;
+      display: flex;
+      justify-content: center;
+    }
+  }
 </style>
